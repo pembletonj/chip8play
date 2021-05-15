@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
 
 	// Create the machine.
 
-	struct Chip8 chip8 = create_chip8(0x1000);
+	struct Chip8 chip8 = create_chip8();
 	printf("[I] Created CHIP-8 machine.\n");
 
 	if (read_to_memory(argv[1], chip8.memory, 0x200, 0x1000 - 0x300)) {
@@ -58,19 +58,15 @@ int main(int argc, char** argv) {
 	Uint32 start_time;
 	Uint32 update_period = 1000;
 
-	int i = 0;
-	while (i < 5  && !quit) {
-		i++;
+	while (!quit) {
 		start_time = SDL_GetTicks();
-		exit_status = next_update(&chip8, &quit);
+		next_update(&chip8, &quit, &exit_status);
 		end_time = SDL_GetTicks();
 		SDL_Delay(update_period - (end_time - start_time));
-		printf("i=%d\n", i);
 	}
 
 	// Clean up
 	
-	destroy_chip8(&chip8);
 	SDL_Quit();
 
 	return exit_status;
