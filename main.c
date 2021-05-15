@@ -1,8 +1,8 @@
 
 #include "chip8.h"
 #include "file.h"
+#include "display.h"
 
-#include <SDL2/SDL_timer.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,6 +36,13 @@ int main(int argc, char** argv) {
 		printf("[I] Initialized audio.\n");
 	}
 
+	// Create the window.
+	
+	struct Display display;
+	if (create_window("CHIP-8", 800, 400, &display)) {
+		return EXIT_FAILURE;
+	}
+		
 	// Create the machine.
 
 	struct Chip8 chip8 = create_chip8();
@@ -66,7 +73,8 @@ int main(int argc, char** argv) {
 	}
 
 	// Clean up
-	
+
+	destroy_display(&display);
 	SDL_Quit();
 
 	return exit_status;
