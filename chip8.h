@@ -1,4 +1,7 @@
 
+#ifndef CHIP8_H
+#define CHIP8_H
+
 #include <bits/stdint-uintn.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -27,3 +30,5 @@ struct Chip8 {
 
 struct Chip8 create_chip8();
 void next_update(struct Chip8* chip8, bool* quit, int* exit_status);
+
+#endif

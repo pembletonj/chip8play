@@ -1,4 +1,7 @@
 
+#ifndef DISPLAY_H
+#define DISPLAY_H
+
 #include <SDL2/SDL.h>
 
 
@@ -17,3 +20,5 @@ int create_window(const char* title, Uint32 width, Uint32 height, struct Display
 void destroy_display(struct Display* display);
 
 SDL_Rect generate_rect(int x, int y, struct Display* display);
+
+#endif
