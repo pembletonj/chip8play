@@ -58,3 +58,23 @@ SDL_Rect generate_rect(int x, int y, struct Display* display) {
 	rect.y += y * rect.h;
 	return rect;
 }
+
+void render(bool screen[32][64], struct Display* display) {
+
+	SDL_SetRenderDrawColor(display->renderer, 0, 0, 0, 0);
+	SDL_RenderClear(display->renderer);
+
+	for (int i = 0; i < 32; i++) {
+		for (int j = 0; j < 64; j++) {
+			if (screen[i][j]) {
+				SDL_Rect rect = generate_rect(j, i, display);
+				SDL_RenderFillRect(display->renderer, &rect);
+			}
+		}
+	}
+
+	SDL_RenderPresent(display->renderer);
+
+}
+
+

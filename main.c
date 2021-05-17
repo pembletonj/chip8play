@@ -3,6 +3,7 @@
 #include "file.h"
 #include "display.h"
 
+#include <SDL2/SDL_events.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,7 +68,20 @@ int main(int argc, char** argv) {
 
 	while (!quit) {
 		start_time = SDL_GetTicks();
+		
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+
+			switch (event.type) {
+				case SDL_QUIT:
+					quit = true;
+					break;
+			}
+
+		}
+		
 		next_update(&chip8, &quit, &exit_status);
+		render(chip8.screen, &display);
 		end_time = SDL_GetTicks();
 		SDL_Delay(update_period - (end_time - start_time));
 	}
